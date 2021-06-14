@@ -2,6 +2,8 @@
 
 ## What is cloud computing
 
+Cloud computing is the on-demand availability of computer system resources, especially data storage and computing power, without direct active management by the user. The term is generally used to describe data centers available to many users over the Internet.
+
 ### Some benefits
 
 - Reduce IT Costs
@@ -26,6 +28,8 @@
 - Twitch
 
 ## What is AWS
+
+AWS is a comprehensive. evolving cloud computing platform provided by Amazon.
 
 ### Some benefits
 
