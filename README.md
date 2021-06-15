@@ -82,3 +82,21 @@ AWS is a comprehensive. evolving cloud computing platform provided by Amazon.
 8. Enter /home/ubuntu/app in your VM
 9. Run node app.js
 10 Access your IP:3000 in your browser
+
+## Reverse proxy
+
+1. If you wish to do reverse proxy you must change your default file using `/etc/nginx/sites-available/default` and replace it with:
+```
+server {
+        listen 80;
+        server_name _;
+        location / {
+                proxy_pass http://(public ip):3000;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+        }
+}
+```
