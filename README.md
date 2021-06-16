@@ -141,3 +141,13 @@ net:
 7. Finally use `npm start`
 8. If the process is done correctly, you would be able to enter your app instance public ip on the browser.
 9. Try also app public ip/posts to see if the process has been completed successfully.
+
+## AWS VPC
+
+1. Create VPC CDIR block 10.0.0.0/16
+2. Create internet gateway and attach to our VPC
+3. Create public subnet within our VPC, 10.0.1.0/24
+4. Create private subnet within our VPC, 10.0.2.0/24
+5. Click on route tables and select table - edit, routes -target - IG that was created
+6. Associate public subnet with our route table - click on subnet association, then - edit subnet association - select public subnet we created earlier.
+
