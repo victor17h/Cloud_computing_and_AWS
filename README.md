@@ -81,7 +81,7 @@ AWS is a comprehensive. evolving cloud computing platform provided by Amazon.
 7. In another terminal enter in the folder where app file is and do scp -i devop_bootcamp.pem -r app/ ubuntu@[Public 4IP]:/home/ubuntu/
 8. Enter /home/ubuntu/app in your VM
 9. Run node app.js
-10 Access your IP:3000 in your browser
+10. Access your IP:3000 in your browser
 
 ## Reverse proxy
 
@@ -100,3 +100,44 @@ server {
         }
 }
 ```
+2. Then do `sudo systemctl restart nginx`
+3. `systemctl status nginx` to check if its running
+4. Access your browser with your public instance ip:3000
+
+## Mongodb
+
+1. Create an instance for mongodb on AWS
+2. During the creation add port 27017 and on custom ip introduce the public ip from the other instance with the end /ip from your private ip.
+3. Access your virtual machine on your shell using `ssh -i "devop_bootcamp.pem" user@awsVirtualMachineLink.com` provided by the instance created.
+4. Export local db folder from ~/.ssh to your virtual machine using `scp -i devop_bootcamp.pem -r app/ ubuntu@[Public 4IP]:/home/ubuntu/`.
+5. Run the provision file you just exported in your virtual machine using `./provision.sh` if it does not work try `ls` and if provision file is not in green color you will need to give permissions by using `chmod +x provision.sh`. Then try again running `./provision.sh`.
+6. Once everything is installed, access cd /etc
+7. Next, do sudo nano mongod.conf to edit the file and use the following code:
+```
+storage:
+  dbPath: /var/lib/mongodb
+  journal:
+    enabled: true
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+```
+8. Then, do `sudo systemctl restart mongod` to apply the changes.
+9. After that, `sudo systemctl enable mongod`.
+10. Check status using, `systemctl status mongod` and see if its running.
+
+## App config
+
+1. After setting app and reverse proxy, you will need to `sudo systemctl restart nginx` and check status using `systemctl status nginx` to see if nginx is still running.
+2. Insert the environment variable using `sudo echo "export DB_HOST=mongodb://(dbip):27017/posts" >> ~/.bashrc` inserting the mongodb instance public ip and finally use `source ~/.bashrc`.
+3. cd into app
+4. Then, `cd seeds`.
+5. Use `node seed.js`.
+6. cd again into app
+7. Finally use `npm start`
+8. If the process is done correctly, you would be able to enter your app instance public ip on the browser.
+9. Try also app public ip/posts to see if the process has been completed successfully.
