@@ -150,4 +150,5 @@ net:
 4. Create private subnet within our VPC, 10.0.2.0/24
 5. Click on route tables and select table - edit, routes -target - IG that was created
 6. Associate public subnet with our route table - click on subnet association, then - edit subnet association - select public subnet we created earlier.
+- Diagram![image](https://user-images.githubusercontent.com/74541774/122251331-503bb680-cec2-11eb-96ea-9c3a2ce99890.png)
 
